@@ -1,0 +1,29 @@
+---
+title: "R Markdown and Leaflet"
+author: "Tim Anderson"
+date: "October 7, 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+The map below denotes the location of the 52 National Parks within the United States. Clicking on a pip will reveal the name of the park. Enjoy.
+
+```{r, warning=FALSE}
+library(leaflet)
+nationalparklocations <- read.csv("C:/Users/Tim/Dropbox/Tim Anderson/Data Science/Working Data/nationalparklocations.csv")
+
+df <- data.frame(latitude = nationalparklocations$lat,
+                 longitude=nationalparklocations$lon,
+                 park=nationalparklocations$place )
+
+df %>% 
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(popup = ~as.character(park))
+```
+
+*Location data source: www.latlong.net*
+
